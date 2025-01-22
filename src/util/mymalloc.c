@@ -113,7 +113,7 @@ typedef struct MBLOCK {
 #define CHECK_IN_PTR(ptr, real_ptr, len, fname) { \
     if (ptr == 0) \
 	msg_panic("%s: null pointer input", fname); \
-    real_ptr = (MBLOCK *) (ptr - offsetof(MBLOCK, u.payload[0])); \
+    real_ptr = (MBLOCK *) ((char*)ptr - offsetof(MBLOCK, u.payload[0])); \
     if (real_ptr->signature != SIGNATURE) \
 	msg_panic("%s: corrupt or unallocated memory block", fname); \
     real_ptr->signature = 0; \
@@ -198,7 +198,7 @@ void   *myrealloc(void *ptr, ssize_t len)
 		  (long) len);
     CHECK_OUT_PTR(ptr, real_ptr, len);
     if (len > old_len)
-	memset(ptr + old_len, FILLER, len - old_len);
+	memset((char*)ptr + old_len, FILLER, len - old_len);
     return (ptr);
 }
 

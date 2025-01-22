@@ -190,7 +190,7 @@ int     vbuf_put(VBUF *bp, int ch)
 ssize_t vbuf_read(VBUF *bp, void *buf, ssize_t len)
 {
     ssize_t count;
-    void   *cp;
+    char   *cp;
     ssize_t n;
 
 #if 0
@@ -216,7 +216,7 @@ ssize_t vbuf_read(VBUF *bp, void *buf, ssize_t len)
 ssize_t vbuf_write(VBUF *bp, const void *buf, ssize_t len)
 {
     ssize_t count;
-    const void *cp;
+    const char *cp;
     ssize_t n;
 
 #if 0

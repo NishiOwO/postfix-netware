@@ -93,7 +93,9 @@
 #ifdef RESOLVE_H_NEEDS_STDIO_H
 #include <stdio.h>
 #endif
+#ifndef NETWARE
 #include <resolv.h>
+#endif
 #include <stdarg.h>
 #include <unistd.h>
 

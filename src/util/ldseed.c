@@ -68,12 +68,13 @@
 
 /* ldseed - best-effort, low-dependency seed */
 
-void    ldseed(void *dst, size_t len)
+void    ldseed(void *_dst, size_t len)
 {
     int     count;
     int     fd;
     int     n;
     time_t  fallback = 0;
+    char* dst = _dst;
 
     /*
      * Medium-quality seed.

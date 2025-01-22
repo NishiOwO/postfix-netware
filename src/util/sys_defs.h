@@ -1257,6 +1257,31 @@ extern int h_errno;
 #define DEF_SMTP_CACHE_DEMAND	0
 #endif
 
+#ifdef NETWARE
+#include <time.h>
+#define SUPPORTED
+#define HAS_FLOCK_LOCK			1
+#define DEF_MAILBOX_LOCK "flock"
+#define INTERNAL_LOCK MYFLOCK_STYLE_FLOCK
+#define USE_STATVFS			1
+#define USE_SYS_SELECT_H		1
+#define STATVFS_IN_SYS_STATVFS_H	1
+#define USE_SYS_SOCKIO_H		1
+#define SOCKADDR_SIZE			int
+#define FIONREAD_IN_SYS_FILIO_H		1
+#define NO_MSGHDR_MSG_CONTROL		1
+#define NO_EAI				1
+#define ESTALE				-1
+
+#define NATIVE_DB_TYPE	"hash"
+#define ALIAS_DB_MAP	DEF_DB_TYPE ":/etc/postfix/aliases"
+
+#define _PATH_MAILDIR	"/var/spool/mail"
+#define _PATH_BSHELL	"SYS:/bin/sh"
+#define _PATH_DEFPATH	"SYS:/bin;SYS:/SYSTEM"
+#define _PATH_STDPATH	"SYS:/bin;SYS:/SYSTEM"
+#endif
+
  /*
   * We're not going to try to guess like configure does.
   */
@@ -1355,10 +1380,13 @@ extern int dup2_pass_on_exec(int oldd, int newd);
 #ifndef HAS_IPV6
 #include <sys/socket.h>
 #define EMULATE_IPV4_ADDRINFO
+
+#ifndef NETWARE
 #define MISSING_INET_PTON
 #define MISSING_INET_NTOP
 extern const char *inet_ntop(int, const void *, char *, SOCKADDR_SIZE);
 extern int inet_pton(int, const char *, void *);
+#endif
 
 #endif
 

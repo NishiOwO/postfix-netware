@@ -521,7 +521,7 @@ static RING event_timer_head;		/* timer queue head */
 static long event_loop_instance;	/* event_loop() call instance */
 
 #define RING_TO_TIMER(r) \
-	((EVENT_TIMER *) ((void *) (r) - offsetof(EVENT_TIMER, ring)))
+	((EVENT_TIMER *) ((void *) (r - offsetof(EVENT_TIMER, ring))))
 
 #define FOREACH_QUEUE_ENTRY(entry, head) \
 	for (entry = ring_succ(head); entry != (head); entry = ring_succ(entry))

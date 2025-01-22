@@ -83,7 +83,11 @@ void    fsspace(const char *path, struct fsspace * sp)
     if (statfs(path, &fsbuf) < 0)
 	msg_fatal("statfs %s: %m", path);
     sp->block_size = fsbuf.f_bsize;
+#ifdef NETWARE
+    sp->block_free = fsbuf.f_bfree;
+#else
     sp->block_free = fsbuf.f_bavail;
+#endif
 #endif
 #endif
 #ifdef USE_STATVFS
@@ -92,7 +96,11 @@ void    fsspace(const char *path, struct fsspace * sp)
     if (statvfs(path, &fsbuf) < 0)
 	msg_fatal("statvfs %s: %m", path);
     sp->block_size = fsbuf.f_frsize;
+#ifdef NETWARE
+    sp->block_free = fsbuf.f_bfree;
+#else
     sp->block_free = fsbuf.f_bavail;
+#endif
 #endif
     if (msg_verbose)
 	msg_info("%s: %s: block size %lu, blocks free %lu",

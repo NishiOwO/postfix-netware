@@ -48,7 +48,9 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <netinet/in.h>
+#ifndef NETWARE
 #include <net/if.h>
+#endif
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -320,7 +322,8 @@ static int ial_siocglif(INET_ADDR_LIST *addr_list,
     return (0);
 }
 
-#else					/* HAVE_SIOCGLIF */
+#elif defined(NETWARE)			/* HAVE_SIOCGLIF */
+#else					/* NETWARE */
 
 /*
  * The classic SIOCGIF* ioctls. Modern BSD operating systems will
@@ -529,7 +532,8 @@ int     inet_addr_local(INET_ADDR_LIST *addr_list, INET_ADDR_LIST *mask_list,
 	 */
 	if (family == AF_INET) {
 	    count = addr_list->used;
-#if defined(HAVE_GETIFADDRS)
+#if defined(NETWARE)
+#elif defined(HAVE_GETIFADDRS)
 	    ial_getifaddrs(addr_list, mask_list, AF_INET);
 #elif defined (HAS_SIOCGLIF)
 	    ial_siocglif(addr_list, mask_list, AF_INET);

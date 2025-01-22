@@ -851,7 +851,7 @@ int     main(int argc, char **argv)
     exit(0);
 }
 EOF
-		   ${CC-gcc} -o makedefs.test makedefs.test.c || exit 1
+		   ${HOSTCC-gcc} -o makedefs.test makedefs.test.c || exit 1
 		   ./makedefs.test 2>/dev/null ||
 			CCARGS="$CCARGS -DNO_SIGSETJMP"
 		   rm -f makedefs.test makedefs.test.[co]

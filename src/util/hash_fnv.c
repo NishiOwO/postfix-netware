@@ -73,10 +73,11 @@
 
 /* hash_fnv - modified FNV 1a hash */
 
-HASH_FNV_T hash_fnv(const void *src, size_t len)
+HASH_FNV_T hash_fnv(const void *_src, size_t len)
 {
     static HASH_FNV_T basis = FNV_offset_basis;
     static int randomize = 1;
+    char* src = _src;
     HASH_FNV_T hash;
 
     /*

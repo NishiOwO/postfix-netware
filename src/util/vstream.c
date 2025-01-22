@@ -740,7 +740,7 @@ static int vstream_fflush_some(VSTREAM *stream, ssize_t to_flush)
     VBUF   *bp = &stream->buf;
     ssize_t used;
     ssize_t left_over;
-    void   *data;
+    char   *data;
     ssize_t len;
     ssize_t n;
     int     timeout;
